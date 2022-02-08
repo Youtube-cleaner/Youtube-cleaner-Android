@@ -10,15 +10,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.slider.RangeSlider;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText edtUri;
-    private RangeSlider rangeSlider;
     private Button btnCheck;
-    private Float range1, range2;
+
+    String strUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +29,23 @@ public class MainActivity extends AppCompatActivity {
         actionBar.hide();
 
         edtUri = (EditText) findViewById(R.id.edtUri);
-        rangeSlider = (RangeSlider) findViewById(R.id.rangeSlider);
         btnCheck = (Button) findViewById(R.id.btnCheck);
 
-        rangeSlider.setValues(30f,60f);
-        rangeSlider.addOnSliderTouchListener(rangeSliderListener);
+
 
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                startActivity(intent);
+                if (edtUri.getText().toString().length() == 0) {    // uri 입력하지 않았을 때
+                    Toast.makeText(getApplicationContext(), "동영상 주소를 입력해주세요!", Toast.LENGTH_SHORT).show();
+                } else {
+                    strUri = edtUri.getText().toString();
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("strUri", strUri);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    private final RangeSlider.OnSliderTouchListener rangeSliderListener = new RangeSlider.OnSliderTouchListener() {
-        @Override
-        public void onStartTrackingTouch(@NonNull RangeSlider slider) {
-            // 바가 시작하면 동작
-        }
-
-        @Override
-        public void onStopTrackingTouch(@NonNull RangeSlider slider) {
-            // 사용자가 바에서 손을 뗐을 때
-            range1 = slider.getValues().get(0);
-            range2 = slider.getValues().get(1);
-            Log.i("rangeSlider", "range1 : "+range1);
-            Log.i("rangeSlider", "range2 : "+range2);
-        }
-    };
 }
