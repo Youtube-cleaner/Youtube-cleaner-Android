@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="12dp">
             <TextView
                 android:layout_width="270dp"
                 android:layout_height="40dp"
@@ -32,14 +32,46 @@
                 android:text="차단"
                 android:textSize="15dp"
                 android:id="@+id/btnBlock1"></Button>
+
             <TextView
+                android:id="@+id/tvContent1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvNickName1"
+                android:text="이거는 자동 줄바꿈이 되는건가? 한번 테스트를 이런식으로 해보게씁니다. 오 자동줄바꿈이 되네용. 굿굿 조아용~"
+                android:textSize="15dp"></TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="270dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="3dp"
+                android:text="닉네임2"
+                android:singleLine="true"
+                android:textSize="23dp"
+                android:textStyle="bold"
+                android:id="@+id/tvNickName2"></TextView>
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:text="차단"
+                android:textSize="15dp"
+                android:id="@+id/btnBlock2"></Button>
+
+            <TextView
+                android:id="@+id/tvContent2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNickName2"
                 android:text="악성댓글\n내용"
-                android:paddingTop="10dp"
-                android:textSize="17dp"
-                android:id="@+id/tvContent1"></TextView>
+                android:textSize="15dp"></TextView>
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>
