@@ -7,7 +7,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:id="@+id/con">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -29,7 +30,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:text="차단"
+                android:text="임시"
                 android:textSize="15dp"
                 android:id="@+id/btnBlock1"></Button>
 
