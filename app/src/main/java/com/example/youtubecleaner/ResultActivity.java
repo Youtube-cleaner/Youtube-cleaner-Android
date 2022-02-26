@@ -17,15 +17,11 @@ public class ResultActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result);
 
+        // 액션바 설정. 뒤로가기 버튼 생성
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);  // 눌렀을때 발생하는 건 manifest에서
         actionBar.setTitle("");
 
-        Intent intent = getIntent();
-        String strUri = intent.getStringExtra("strUri");
-        
-        //llName=(LinearLayout) findViewById(R.id.llName);
-        //createTextView();
     }
 
     /*
