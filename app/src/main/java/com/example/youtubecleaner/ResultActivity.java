@@ -46,7 +46,6 @@ class Sub extends LinearLayout{
         super(context);
         init(context);
     }
-
     private void init(Context context){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.pra, this, true);
