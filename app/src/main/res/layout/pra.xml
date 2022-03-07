@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp">
+        <TextView
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="3dp"
+            android:text="닉네임란"
+            android:singleLine="true"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:id="@+id/tvNickName2"></TextView>
+
+        <TextView
+            android:id="@+id/tvContent2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNickName2"
+            android:text="내용란"
+            android:textSize="15dp"></TextView>
+    </RelativeLayout>
+
+</LinearLayout>
