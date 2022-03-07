@@ -18,8 +18,8 @@ import com.bumptech.glide.Glide;
 
 public class ResultActivity extends AppCompatActivity{
 
-    Button btnBlock1;
-    ImageView ivThumbnail;
+    Button btnTest;
+    ImageView ivThumbnail, ivResultDefault;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,7 @@ public class ResultActivity extends AppCompatActivity{
 
         //Glide 라이브러리를 사용해서 유튜브 썸네일을 가져오는 작업
         ivThumbnail=(ImageView)findViewById(R.id.ivThumbnail);
+        ivResultDefault=(ImageView)findViewById(R.id.ivResultDefault);
         String youtubeId = "l9td5nMYAP8";   // 유튜브 영상의 고유 ID. 테스트용.
         String thumbnail = "https://img.youtube.com/vi/"+youtubeId+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
         Glide.with(this)                 // Activity Context
@@ -40,18 +41,19 @@ public class ResultActivity extends AppCompatActivity{
                 .fallback(R.drawable.error)     // 불러올 이미지가 null인 경우 보여줄 이미지 설정
                 .into(ivThumbnail);             // 이미지를 보여줄 View 설정
 
-        /*
+
         //실험용. 버튼 누르면 Sub 클래스가 실행되면서 뷰가 동적 생성됨
-        btnBlock1 = (Button) findViewById(R.id.btnBlock1);
-        btnBlock1.setOnClickListener(new View.OnClickListener(){
+        btnTest = (Button) findViewById(R.id.btnTest);
+        btnTest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                ivResultDefault.setVisibility(View.GONE);
                 Sub nLayout = new Sub(getApplicationContext());
                 LinearLayout con = (LinearLayout) findViewById(R.id.con);
                 con.addView(nLayout);
             }
         });
-        */
+
     }
 }
 

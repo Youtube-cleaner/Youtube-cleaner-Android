@@ -19,7 +19,6 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="100dp"
-                android:src="@drawable/youtube"
                 android:id="@+id/ivThumbnail"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -27,56 +26,17 @@
                 android:text="제목칸"></TextView>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
-
-            <TextView
-                android:id="@+id/tvNickName1"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="3dp"
-                android:singleLine="true"
-                android:text="닉네임엄청길면어떻게처리되는지테스트"
-                android:textSize="23dp"
-                android:textStyle="bold"></TextView>
-
-
-            <TextView
-                android:id="@+id/tvContent1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvNickName1"
-                android:text="댓글내용칸. 자동 줄바꿈이 됩니다. 테스트 테스트 테스트 테스트 테스트 테스트 "
-                android:textSize="15dp"></TextView>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="fill_parent"
+            android:text="text"
+            android:id="@+id/btnTest"></Button>
+        <ImageView
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp">
-
-            <TextView
-                android:id="@+id/tvNickName2"
-                android:layout_width="270dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="3dp"
-                android:singleLine="true"
-                android:text="닉네임란"
-                android:textSize="23dp"
-                android:textStyle="bold"></TextView>
-
-            <TextView
-                android:id="@+id/tvContent2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvNickName2"
-                android:text="내용란"
-                android:textSize="15dp"></TextView>
-        </RelativeLayout>
+            android:layout_width="wrap_content"
+            android:src="@drawable/resultdefault"
+            android:layout_gravity="center"
+            android:id="@+id/ivResultDefault"
+            ></ImageView>
     </LinearLayout>
 </ScrollView>
