@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -20,6 +21,25 @@ public class ResultActivity extends AppCompatActivity{
 
     Button btnTest;
     ImageView ivThumbnail, ivResultDefault;
+    private long backKeyPressedTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        // 마지막으로 뒤로가기 버튼을 누른 시간이 2초가 지났을 경우
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000){
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 마지막으로 뒤로가기 버튼을 누른 시간이 2초 이내일 경우 앱 종료
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finishAffinity();
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +73,7 @@ public class ResultActivity extends AppCompatActivity{
                 con.addView(nLayout);
             }
         });
+
 
     }
 }
