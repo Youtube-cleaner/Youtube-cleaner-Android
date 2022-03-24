@@ -33,4 +33,9 @@ public class LoadingActivity extends AppCompatActivity {
         }, 4000);
     }
 
+    // 뒤로가기 버튼을 눌러도 동작하지 않게 함.
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }
