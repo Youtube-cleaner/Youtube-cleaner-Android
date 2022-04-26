@@ -6,18 +6,27 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="15dp">
+
         <TextView
-            android:layout_width="270dp"
+            android:id="@+id/tvNickName2"
+            android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="3dp"
-            android:text="닉네임란"
             android:singleLine="true"
+            android:text="닉네임란"
             android:textSize="23dp"
-            android:textStyle="bold"
-            android:id="@+id/tvNickName2"></TextView>
+            android:textStyle="bold"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="6dp"
+            android:text="n%"
+            android:textSize="20dp"
+            android:id="@+id/tvPoint"></TextView>
 
         <TextView
             android:id="@+id/tvContent2"

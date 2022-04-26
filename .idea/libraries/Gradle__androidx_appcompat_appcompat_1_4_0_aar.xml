@@ -11,6 +11,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat/1.4.0/90635e5c864748b479ea6bdd3439b68a6eb678a9/appcompat-1.4.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat/1.4.0/90635e5c864748b479ea6bdd3439b68a6eb678a9/appcompat-1.4.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
