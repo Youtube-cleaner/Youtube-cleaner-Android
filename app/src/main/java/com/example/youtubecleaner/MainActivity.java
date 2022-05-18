@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     // EditText에 입력된 주소를 String 형태로 저장하여 LoadingActivity로 넘겨줌
                     strUri = edtUri.getText().toString();
+
+                    Log.d("activity", "MainActivity>ResultActivity");
                     Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
                     intent.putExtra("strUri", strUri);
                     startActivity(intent);
