@@ -26,7 +26,7 @@
             android:layout_marginTop="6dp"
             android:text="n%"
             android:textSize="20dp"
-            android:id="@+id/tvPoint"></TextView>
+            android:id="@+id/tvPoint2"></TextView>
 
         <TextView
             android:id="@+id/tvContent2"

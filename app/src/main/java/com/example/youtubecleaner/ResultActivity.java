@@ -3,11 +3,13 @@ package com.example.youtubecleaner;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,13 +51,21 @@ public class ResultActivity extends AppCompatActivity{
         actionBar.setDisplayHomeAsUpEnabled(true);  // 눌렀을때 발생하는 건 manifest에서
         actionBar.setTitle("");
 
+        Log.d("activity", "ResultActivity | ResultActivity로 전환됨");
+
         Intent intent = getIntent();
         String videoID = intent.getStringExtra("videoID");
+        String userID = intent.getStringExtra("userID");
+        String comment = intent.getStringExtra("comment");
+        float fScore = intent.getFloatExtra("score", 0);
+        String score = Float.toString(fScore);
 
         //Glide 라이브러리를 사용해서 유튜브 썸네일을 가져오는 작업
         ivThumbnail=(ImageView)findViewById(R.id.ivThumbnail);
         //String youtubeId = "l9td5nMYAP8";   // 유튜브 영상의 고유 ID. 테스트용.
-        String thumbnail = "https://img.youtube.com/vi/"+videoID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
+        String youtubeId = "MyOoYJPQK9w";   // 유튜브 영상의 고유 ID. 테스트용.
+        String thumbnail = "https://img.youtube.com/vi/"+youtubeId+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
+        //String thumbnail = "https://img.youtube.com/vi/"+videoID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
         Glide.with(this)                 // Activity Context
                 .load(thumbnail)                // 불러올 이미지
                 .error(R.drawable.error)        // 이미지를 불러오다가 에러가 발생했을 때 보여줄 이미지 설정
@@ -74,9 +84,22 @@ public class ResultActivity extends AppCompatActivity{
             }
         });
 
+        // 테스트용 코드
+        TextView tvNickname = (TextView)findViewById(R.id.tvNickName2);
+        TextView tvComment = (TextView)findViewById(R.id.tvContent2);
+        TextView tvScore = (TextView)findViewById(R.id.tvPoint2);
+
+        //tvNickname.setText(userID);
+        //tvComment.setText(comment);
+        //tvScore.setText(score);
+
+
+
         Sub nLayout = new Sub(getApplicationContext());
         LinearLayout con = (LinearLayout) findViewById(R.id.con);
         con.addView(nLayout);
+
+
 
 
         /*
@@ -104,5 +127,6 @@ class Sub extends LinearLayout{
     private void init(Context context){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.ex_content, this, true);
+        //inflater.inflate(R.layout.content, this, true);
     }
 }

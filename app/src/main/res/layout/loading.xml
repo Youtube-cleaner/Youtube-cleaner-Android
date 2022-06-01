@@ -14,6 +14,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="약 5초정도 소요됩니다"></TextView>
+        android:text="분석에 시간이 걸립니다"></TextView>
 
 </LinearLayout>

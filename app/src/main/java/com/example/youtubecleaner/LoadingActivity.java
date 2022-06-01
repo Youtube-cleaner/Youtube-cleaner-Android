@@ -4,25 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class LoadingActivity extends AppCompatActivity {
     private RetrofitClient retrofitClient;
@@ -37,12 +28,15 @@ public class LoadingActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        // https://youtu.be/MyOoYJPQK9w
+
         // MainActivity에서 넘겨준 uri을 받아옴
         Intent intent = getIntent();
         String strUri = intent.getStringExtra("strUri");
-        String videoID = strUri.substring(strUri.length()-11, strUri.length());
+        Log.d("intent", "LoadingActivity | getExtra_" + strUri);
 
-        Log.d("activity", "LoadingActivity 실행 뒤 getIntent");
+        //String videoID = strUri.substring(strUri.length()-11, strUri.length());
+        String videoID = "fksdnfenfsf";
 
         RetrofitResponse(videoID);
 
@@ -60,7 +54,7 @@ public class LoadingActivity extends AppCompatActivity {
         retrofitAPI.execYC(retrofitRequest).enqueue(new Callback<RetrofitResponse>() {
             @Override
             public void onResponse(Call<RetrofitResponse> call, Response<RetrofitResponse> response) {
-                Log.d("retrofit", "Data fetch success");
+                Log.d("retrofit", "LoadingActivity | onResponse : Data fetch success");
 
                 // 통신 성공
                 if (response.isSuccessful() && response.body()!=null){
@@ -72,15 +66,32 @@ public class LoadingActivity extends AppCompatActivity {
                     String resultComment = result.getComment();
                     float resultScore = result.getScore();
 
-                    nextActivity(youtubeID);
+                    Log.d("retrofit", "LoadingActivity | onResponse : userID_"+resultUserID);
+                    Log.d("retrofit", "LoadingActivity | onResponse : comment_"+resultComment);
+                    Log.d("retrofit", "LoadingActivity | onResponse : score_: "+resultScore);
+
+                    nextActivity(youtubeID, resultUserID, resultComment, resultScore);
+                } else {
+                    // HTTP 상태코드 3xx, 4xx
+                    try{
+                        String body = response.errorBody().string();
+                        Log.d("retrofit", "LoadingActivity | onResponse isSuccessful == false : " + body);
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    startActivity(intent);
                 }
             }
 
             // 통신 실패
             @Override
             public void onFailure(Call<RetrofitResponse> call, Throwable t) {
-                Log.d("retrofit","onFailure");
-                nextActivity(youtubeID);
+                Log.d("retrofit","LoadingActivity | RetrofitResponse : onFailure");
+                t.printStackTrace();
+                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -91,14 +102,17 @@ public class LoadingActivity extends AppCompatActivity {
         //super.onBackPressed();
     }
 
-    public void nextActivity(String videoID) {
+    public void nextActivity(String videoID, String resultUserID, String resultComment, float resultScore) {
         // 3초 뒤에 ResultActivity로 전환
-        Log.d("activity", "LoadingActivity>ResultActivity");
+        Log.d("activity", "LoadingActivity | ResultActivity로 전환");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(LoadingActivity.this, ResultActivity.class);
                 intent.putExtra("videoID", videoID);
+                intent.putExtra("userID", resultUserID);
+                intent.putExtra("comment", resultComment);
+                intent.putExtra("score", resultScore);
                 startActivity(intent);
             }
         }, 3000);

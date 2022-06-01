@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.slider.RangeSlider;
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText edtUri;    // uri이 입력될 EditText
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     // EditText에 입력된 주소를 String 형태로 저장하여 LoadingActivity로 넘겨줌
                     strUri = edtUri.getText().toString();
 
-                    Log.d("activity", "MainActivity>ResultActivity");
+                    Log.d("activity", "MainActivity | intent : putExtra_"+strUri);
                     Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
                     intent.putExtra("strUri", strUri);
                     startActivity(intent);
