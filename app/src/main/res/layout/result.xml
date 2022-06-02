@@ -17,13 +17,31 @@
             android:layout_marginBottom="20dp">
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:id="@+id/ivThumbnail"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="제목"></TextView>
+                android:id="@+id/ivThumbnail"
+                android:layout_width="167dp"
+                android:layout_height="100dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="제목"
+                    android:textStyle="bold"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:id="@+id/tvYoutubeTitle"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="채널명"
+                    android:layout_marginTop="8dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/tvYoutubeName"></TextView>
+            </LinearLayout>
+
         </LinearLayout>
 
         <Button
