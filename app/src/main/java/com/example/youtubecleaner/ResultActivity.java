@@ -30,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ResultActivity extends AppCompatActivity{
 
@@ -108,20 +110,6 @@ public class ResultActivity extends AppCompatActivity{
             }
         }).start();
 
-
-
-        // 버튼 누르면 오름차순 또는 내림차순으로 정렬
-        btnSort = (Button)findViewById(R.id.btnSort);
-        btnSort.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                if(btnSort.getText().toString()=="내림차순"){
-                    btnSort.setText("오름차순");
-                } else
-                    btnSort.setText("내림차순");
-            }
-        });
-
         // 리스트뷰에 데이터 추가
         adapter = new ListViewAdapter(itemList);
 
@@ -140,9 +128,44 @@ public class ResultActivity extends AppCompatActivity{
             adapter.addItem(arrUserID[i], arrComment[i], arrScore[i]);
         }
 
+        // 버튼 누르면 오름차순 또는 내림차순으로 정렬
+        btnSort = (Button)findViewById(R.id.btnSort);
+        btnSort.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(btnSort.getText().toString()=="정렬하기" || btnSort.getText().toString()=="내림차순"){
+                    // 오름차순으로 정렬하기. asc
+                    btnSort.setText("오름차순");
+                    sortItem(0);
+                } else {
+                    // 내림차순으로 정렬하기. desc
+                    btnSort.setText("내림차순");
+                    sortItem(1);
+                }
+            }
+        });
 
     }
 
+    protected void sortItem(int code){
+        Comparator<ListViewItem> compItem = new Comparator<ListViewItem>() {
+            @Override
+            public int compare(ListViewItem item1, ListViewItem item2) {
+                int ret;
+
+                if (code==0){ // 오름차순
+                    return (item1.getItemScore() - item2.getItemScore());
+                } else if (code==1){ // 내림차순
+                    return (item2.getItemScore() - item1.getItemScore());
+                }
+
+                return 0;
+            }
+        };
+
+        Collections.sort(itemList, compItem);
+        adapter.notifyDataSetChanged();
+    }
 
     // youtube 동영상 이름과 채널명을 json 형식으로 받아오기
     protected void jsonParsing(String youtubeID){
