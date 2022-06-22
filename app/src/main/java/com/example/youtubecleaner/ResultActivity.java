@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity{
 
@@ -39,8 +38,12 @@ public class ResultActivity extends AppCompatActivity{
     TextView tvYoutubeName, tvYoutubeTitle, tvUserID, tvComment, tvScore;
     private long backKeyPressedTime = 0;
     String youtubeURL="https://noembed.com/embed?url=https://www.youtube.com/watch?v=";
+    ListView listView;
+    ListViewAdapter adapter;
 
-    Handler handler = new Handler();
+    ArrayList<ListViewItem> itemList = new ArrayList<ListViewItem>();
+    String[] arrUserID, arrComment;
+    Integer[] arrScore;
 
     @Override
     public void onBackPressed() {
@@ -118,16 +121,25 @@ public class ResultActivity extends AppCompatActivity{
             }
         });
 
-        // 뷰(댓글)를 동적 추가하는 코드
+        // 리스트뷰에 데이터 추가
+        adapter = new ListViewAdapter(itemList);
+
+        listView = (ListView) findViewById(R.id.listview0);
+        listView.setAdapter(adapter);
+
         DemoData dm = new DemoData();
         int numContent = dm.getNum();
 
+        arrUserID = dm.getUserID();
+        arrComment = dm.getComment();
+        arrScore = dm.getScore();
+
         for(int i=0; i<numContent; i++){
-            Sub nLayout = new Sub(getApplicationContext());
-            LinearLayout con = (LinearLayout) findViewById(R.id.con);
-            con.addView(nLayout);
-            dm.setCount();
+            Log.d("ResultActivity", "userID="+arrUserID[i]+"," +
+                    "comment="+arrComment[i]+", score="+arrScore[i]);
+            adapter.addItem(arrUserID[i], arrComment[i], arrScore[i]);
         }
+
 
     }
 
@@ -200,37 +212,3 @@ public class ResultActivity extends AppCompatActivity{
 
 
 }
-
-class Sub extends LinearLayout{
-    TextView tvUserID, tvComment, tvScore;
-
-    DemoData data = new DemoData();
-    final String[] arrUserID = data.getUserID();
-    final String[] arrComment = data.getComment();
-    final String[] arrScore = data.getScore();
-
-    public Sub(Context context){
-        super(context);
-        init(context);
-    }
-
-    private void init(Context context){
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.content, this, true);
-
-        tvUserID = (TextView)findViewById(R.id.tvUserID);
-        tvComment = (TextView)findViewById(R.id.tvComment);
-        tvScore = (TextView)findViewById(R.id.tvScore);
-
-        int count = data.getCount();
-
-        Log.d("ResultActivity", "Add Comment View | count = " +count);
-
-        tvUserID.setText(arrUserID[count]);
-        tvComment.setText(arrComment[count]);
-        tvScore.setText(arrScore[count]+"%");
-
-    }
-
-}
-
