@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +36,7 @@ public class ResultActivity extends AppCompatActivity{
 
     ImageView ivThumbnail;
     Button btnSort;
-    TextView tvYoutubeName, tvYoutubeTitle;
+    TextView tvYoutubeName, tvYoutubeTitle, tvUserID, tvComment, tvScore;
     private long backKeyPressedTime = 0;
     String youtubeURL="https://noembed.com/embed?url=https://www.youtube.com/watch?v=";
 
@@ -115,38 +118,21 @@ public class ResultActivity extends AppCompatActivity{
             }
         });
 
-        // 테스트용 코드
-        TextView tvNickname = (TextView)findViewById(R.id.tvNickName2);
-        TextView tvComment = (TextView)findViewById(R.id.tvContent2);
-        TextView tvScore = (TextView)findViewById(R.id.tvPoint2);
+        // 뷰(댓글)를 동적 추가하는 코드
+        DemoData dm = new DemoData();
+        int numContent = dm.getNum();
 
-        //tvNickname.setText(userID);
-        //tvComment.setText(comment);
-        //tvScore.setText(score);
-
-
-
-        Sub nLayout = new Sub(getApplicationContext());
-        LinearLayout con = (LinearLayout) findViewById(R.id.con);
-        con.addView(nLayout);
-
-
-
-
-        /*
-        btnTest.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Sub nLayout = new Sub(getApplicationContext());
-                LinearLayout con = (LinearLayout) findViewById(R.id.con);
-                con.addView(nLayout);
-            }
-        });
-        */
-
+        for(int i=0; i<numContent; i++){
+            Sub nLayout = new Sub(getApplicationContext());
+            LinearLayout con = (LinearLayout) findViewById(R.id.con);
+            con.addView(nLayout);
+            dm.setCount();
+        }
 
     }
 
+
+    // youtube 동영상 이름과 채널명을 json 형식으로 받아오기
     protected void jsonParsing(String youtubeID){
         String urlStr = youtubeURL+youtubeID;
         String jsonStr="";
@@ -212,33 +198,39 @@ public class ResultActivity extends AppCompatActivity{
         }
     }
 
-    /*
-    public void setTv(final String str, int i){
-        // int i : 1이면 title, 2면 name
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                switch (i==1){
-                    tvYoutubeTitle.setText(str);
-                }
-            }
-        });
-    }
-
-     */
-
 
 }
 
 class Sub extends LinearLayout{
+    TextView tvUserID, tvComment, tvScore;
+
+    DemoData data = new DemoData();
+    final String[] arrUserID = data.getUserID();
+    final String[] arrComment = data.getComment();
+    final String[] arrScore = data.getScore();
+
     public Sub(Context context){
         super(context);
         init(context);
     }
+
     private void init(Context context){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.ex_content, this, true);
-        //inflater.inflate(R.layout.content, this, true);
+        inflater.inflate(R.layout.content, this, true);
+
+        tvUserID = (TextView)findViewById(R.id.tvUserID);
+        tvComment = (TextView)findViewById(R.id.tvComment);
+        tvScore = (TextView)findViewById(R.id.tvScore);
+
+        int count = data.getCount();
+
+        Log.d("ResultActivity", "Add Comment View | count = " +count);
+
+        tvUserID.setText(arrUserID[count]);
+        tvComment.setText(arrComment[count]);
+        tvScore.setText(arrScore[count]+"%");
+
     }
+
 }
+

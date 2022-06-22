@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         edtUri = (EditText) findViewById(R.id.edtUri);
         btnCheck = (Button) findViewById(R.id.btnCheck);
 
+        // 전역변수 count 초기화
+        DemoData demo = new DemoData();
+        demo.initCount();
+
         // 버튼 클릭
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
