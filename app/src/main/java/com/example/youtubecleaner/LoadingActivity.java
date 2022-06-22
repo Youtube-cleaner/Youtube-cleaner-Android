@@ -35,8 +35,9 @@ public class LoadingActivity extends AppCompatActivity {
         String strUri = intent.getStringExtra("strUri");
         Log.d("intent", "LoadingActivity | getExtra_" + strUri);
 
-        //String videoID = strUri.substring(strUri.length()-11, strUri.length());
-        String videoID = "fksdnfenfsf";
+        String videoID = strUri.substring(strUri.length()-11, strUri.length());
+        Log.d("Intent", "LoadingActivity | videoID = "+videoID);
+        //String videoID = "fksdnfenfsf";
 
         RetrofitResponse(videoID);
 
@@ -81,6 +82,7 @@ public class LoadingActivity extends AppCompatActivity {
                     }
 
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("videoID", youtubeID);
                     startActivity(intent);
                 }
             }
@@ -91,6 +93,7 @@ public class LoadingActivity extends AppCompatActivity {
                 Log.d("retrofit","LoadingActivity | RetrofitResponse : onFailure");
                 t.printStackTrace();
                 Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                intent.putExtra("videoID", youtubeID);
                 startActivity(intent);
             }
         });

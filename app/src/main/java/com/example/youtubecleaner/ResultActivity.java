@@ -84,13 +84,13 @@ public class ResultActivity extends AppCompatActivity{
         float fScore = intent.getFloatExtra("score", 0);
         String score = Float.toString(fScore);
 
+        Log.d("Intent", "ResultActivity | videoID = " +videoID);
 
         //Glide 라이브러리를 사용해서 유튜브 썸네일을 가져오는 작업
         ivThumbnail=(ImageView)findViewById(R.id.ivThumbnail);
-        //String youtubeId = "l9td5nMYAP8";   // 유튜브 영상의 고유 ID. 테스트용.
-        String youtubeID = "MyOoYJPQK9w";   // 유튜브 영상의 고유 ID. 테스트용.
-        String thumbnail = "https://img.youtube.com/vi/"+youtubeID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
-        //String thumbnail = "https://img.youtube.com/vi/"+videoID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
+        //String youtubeID = "MyOoYJPQK9w";   // 유튜브 영상의 고유 ID. 테스트용.
+        //String thumbnail = "https://img.youtube.com/vi/"+youtubeID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
+        String thumbnail = "https://img.youtube.com/vi/"+videoID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
         Glide.with(this)                 // Activity Context
                 .load(thumbnail)                // 불러올 이미지
                 .error(R.drawable.error)        // 이미지를 불러오다가 에러가 발생했을 때 보여줄 이미지 설정
@@ -103,7 +103,8 @@ public class ResultActivity extends AppCompatActivity{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                jsonParsing(youtubeID);
+                //jsonParsing(youtubeID);
+                jsonParsing(videoID);
             }
         }).start();
 
@@ -135,8 +136,7 @@ public class ResultActivity extends AppCompatActivity{
         arrScore = dm.getScore();
 
         for(int i=0; i<numContent; i++){
-            Log.d("ResultActivity", "userID="+arrUserID[i]+"," +
-                    "comment="+arrComment[i]+", score="+arrScore[i]);
+            //Log.d("ResultActivity", "userID="+arrUserID[i]+"," + "comment="+arrComment[i]+", score="+arrScore[i]);
             adapter.addItem(arrUserID[i], arrComment[i], arrScore[i]);
         }
 
