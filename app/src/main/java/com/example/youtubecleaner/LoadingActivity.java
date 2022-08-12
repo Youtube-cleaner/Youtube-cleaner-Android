@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,13 +47,13 @@ public class LoadingActivity extends AppCompatActivity {
     public void RetrofitResponse(String videoID) {
         String youtubeID = videoID;
 
-        RetrofitRequest retrofitRequest = new RetrofitRequest(youtubeID);
+        //RetrofitRequest retrofitRequest = new RetrofitRequest(youtubeID);
 
         retrofitClient = RetrofitClient.getInstance();
         retrofitAPI = RetrofitClient.getRetrofitInterface();
 
         // RetrofitRequest에 저장된 데이터와 함께 RetrofitAPI에서 정의한 execYC함수를 실행한 후 응답을 받음
-        retrofitAPI.execYC(retrofitRequest).enqueue(new Callback<RetrofitResponse>() {
+        retrofitAPI.execYC(youtubeID).enqueue(new Callback<RetrofitResponse>() {
             @Override
             public void onResponse(Call<RetrofitResponse> call, Response<RetrofitResponse> response) {
                 Log.d("retrofit", "LoadingActivity | onResponse : Data fetch success");
@@ -63,9 +64,9 @@ public class LoadingActivity extends AppCompatActivity {
                     RetrofitResponse result = response.body();
 
                     // 받은 데이터 저장
-                    String resultUserID = result.getUserID();
-                    String resultComment = result.getComment();
-                    float resultScore = result.getScore();
+                    String resultUserID = result.userID;
+                    String resultComment = result.comment;
+                    Float resultScore = result.score;
 
                     Log.d("retrofit", "LoadingActivity | onResponse : userID_"+resultUserID);
                     Log.d("retrofit", "LoadingActivity | onResponse : comment_"+resultComment);
@@ -87,7 +88,7 @@ public class LoadingActivity extends AppCompatActivity {
                 }
             }
 
-            // 통신 실패
+            // 인터넷 장애로 인한 통신 실패
             @Override
             public void onFailure(Call<RetrofitResponse> call, Throwable t) {
                 Log.d("retrofit","LoadingActivity | RetrofitResponse : onFailure");
@@ -105,7 +106,7 @@ public class LoadingActivity extends AppCompatActivity {
         //super.onBackPressed();
     }
 
-    public void nextActivity(String videoID, String resultUserID, String resultComment, float resultScore) {
+    public void nextActivity(String videoID, String resultUserID, String resultComment, double resultScore) {
         // 3초 뒤에 ResultActivity로 전환
         Log.d("activity", "LoadingActivity | ResultActivity로 전환");
         new Handler().postDelayed(new Runnable() {

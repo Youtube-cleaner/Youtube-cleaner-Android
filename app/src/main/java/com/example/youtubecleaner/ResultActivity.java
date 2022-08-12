@@ -150,8 +150,7 @@ public class ResultActivity extends AppCompatActivity{
     protected void sortItem(int code){
         Comparator<ListViewItem> compItem = new Comparator<ListViewItem>() {
             @Override
-            public int compare(ListViewItem item1, ListViewItem item2) {
-                int ret;
+            public int compare(ListViewItem item1, ListViewItem item2){
 
                 if (code==0){ // 오름차순
                     return (item1.getItemScore() - item2.getItemScore());
