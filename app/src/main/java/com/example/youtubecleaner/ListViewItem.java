@@ -2,7 +2,7 @@ package com.example.youtubecleaner;
 
 public class ListViewItem {
     private String itemUserID, itemComment;
-    private int itemScore;
+    private Float itemScore;
 
     public String getItemUserID() {
         return itemUserID;
@@ -20,11 +20,11 @@ public class ListViewItem {
         this.itemComment = itemComment;
     }
 
-    public int getItemScore() {
+    public Float getItemScore() {
         return itemScore;
     }
 
-    public void setItemScore(int itemScore) {
+    public void setItemScore(Float itemScore) {
         this.itemScore = itemScore;
     }
 }

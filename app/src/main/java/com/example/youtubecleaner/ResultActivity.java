@@ -45,7 +45,7 @@ public class ResultActivity extends AppCompatActivity{
 
     ArrayList<ListViewItem> itemList = new ArrayList<ListViewItem>();
     String[] arrUserID, arrComment;
-    Integer[] arrScore;
+    Float[] arrScore;
 
     @Override
     public void onBackPressed() {
@@ -83,7 +83,7 @@ public class ResultActivity extends AppCompatActivity{
         String videoID = intent.getStringExtra("videoID");
         String userID = intent.getStringExtra("userID");
         String comment = intent.getStringExtra("comment");
-        float fScore = intent.getFloatExtra("score", 0);
+        Float fScore = intent.getFloatExtra("score", 0.0f);
         String score = Float.toString(fScore);
 
         Log.d("Intent", "ResultActivity | videoID = " +videoID);
@@ -153,9 +153,9 @@ public class ResultActivity extends AppCompatActivity{
             public int compare(ListViewItem item1, ListViewItem item2){
 
                 if (code==0){ // 오름차순
-                    return (item1.getItemScore() - item2.getItemScore());
+                    return (int)(item1.getItemScore() - item2.getItemScore());
                 } else if (code==1){ // 내림차순
-                    return (item2.getItemScore() - item1.getItemScore());
+                    return (int)(item2.getItemScore() - item1.getItemScore());
                 }
 
                 return 0;

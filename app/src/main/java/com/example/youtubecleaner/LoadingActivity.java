@@ -106,7 +106,7 @@ public class LoadingActivity extends AppCompatActivity {
         //super.onBackPressed();
     }
 
-    public void nextActivity(String videoID, String resultUserID, String resultComment, double resultScore) {
+    public void nextActivity(String videoID, String resultUserID, String resultComment, Float resultScore) {
         // 3초 뒤에 ResultActivity로 전환
         Log.d("activity", "LoadingActivity | ResultActivity로 전환");
         new Handler().postDelayed(new Runnable() {

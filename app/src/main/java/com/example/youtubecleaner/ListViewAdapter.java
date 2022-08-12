@@ -39,7 +39,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수
-    public void addItem(String userID, String comment, int score){
+    public void addItem(String userID, String comment, Float score){
         ListViewItem item = new ListViewItem();
 
         item.setItemUserID(userID);
@@ -68,7 +68,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         tvItemUserID.setText(listViewItem.getItemUserID());
         tvItemComment.setText(listViewItem.getItemComment());
-        tvItemScore.setText(Integer.toString(listViewItem.getItemScore())+"%");
+        tvItemScore.setText(Float.toString(listViewItem.getItemScore())+"%");
 
         return view;
     }
