@@ -39,12 +39,14 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수
-    public void addItem(String userID, String comment, Float score){
+    public void addItem(String userID, String comment, String score){
         ListViewItem item = new ListViewItem();
+
+        Float fScore = Float.valueOf(score);
 
         item.setItemUserID(userID);
         item.setItemComment(comment);
-        item.setItemScore(score);
+        item.setItemScore(fScore);
 
         listViewItemList.add(item);
     }

@@ -116,6 +116,9 @@ public class ResultActivity extends AppCompatActivity{
         listView = (ListView) findViewById(R.id.listview0);
         listView.setAdapter(adapter);
 
+        // 데모 데이터
+
+        /*
         DemoData dm = new DemoData();
         int numContent = dm.getNum();
 
@@ -123,10 +126,16 @@ public class ResultActivity extends AppCompatActivity{
         arrComment = dm.getComment();
         arrScore = dm.getScore();
 
+
+
         for(int i=0; i<numContent; i++){
             //Log.d("ResultActivity", "userID="+arrUserID[i]+"," + "comment="+arrComment[i]+", score="+arrScore[i]);
             adapter.addItem(arrUserID[i], arrComment[i], arrScore[i]);
         }
+
+         */
+
+        adapter.addItem(userID, comment, score);
 
         // 버튼 누르면 오름차순 또는 내림차순으로 정렬
         btnSort = (Button)findViewById(R.id.btnSort);
