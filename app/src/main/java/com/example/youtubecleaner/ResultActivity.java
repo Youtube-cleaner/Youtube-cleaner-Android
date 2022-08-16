@@ -81,10 +81,11 @@ public class ResultActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         String videoID = intent.getStringExtra("videoID");
-        String userID = intent.getStringExtra("userID");
-        String comment = intent.getStringExtra("comment");
-        Float fScore = intent.getFloatExtra("score", 0.0f);
-        String score = Float.toString(fScore);
+        String[] userID = intent.getStringArrayExtra("userID");
+        String[] comment = intent.getStringArrayExtra("comment");
+        float[] score = intent.getFloatArrayExtra("score");
+
+        int arrayLength = userID.length;
 
         Log.d("Intent", "ResultActivity | videoID = " +videoID);
 
@@ -135,7 +136,15 @@ public class ResultActivity extends AppCompatActivity{
 
          */
 
-        adapter.addItem(userID, comment, score);
+        for (int i=0; i<arrayLength; i++) {
+            try{
+                adapter.addItem(userID[i], comment[i], score[i]);
+            } catch(ArrayIndexOutOfBoundsException e){
+                Toast.makeText(getApplicationContext(), "댓글이 없습니다", Toast.LENGTH_SHORT).show();
+            } catch(NullPointerException e){
+                Toast.makeText(getApplicationContext(), "댓글이 없습니다", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         // 버튼 누르면 오름차순 또는 내림차순으로 정렬
         btnSort = (Button)findViewById(R.id.btnSort);

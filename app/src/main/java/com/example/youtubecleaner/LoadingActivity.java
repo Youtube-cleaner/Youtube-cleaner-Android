@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,24 +54,36 @@ public class LoadingActivity extends AppCompatActivity {
         retrofitAPI = RetrofitClient.getRetrofitInterface();
 
         // RetrofitRequest에 저장된 데이터와 함께 RetrofitAPI에서 정의한 execYC함수를 실행한 후 응답을 받음
-        retrofitAPI.execYC(youtubeID).enqueue(new Callback<RetrofitResponse>() {
+        retrofitAPI.execYC(youtubeID).enqueue(new Callback<List<RetrofitResponse>>() {
             @Override
-            public void onResponse(Call<RetrofitResponse> call, Response<RetrofitResponse> response) {
+            public void onResponse(Call<List<RetrofitResponse>> call, Response<List<RetrofitResponse>> response) {
                 Log.d("retrofit", "LoadingActivity | onResponse : Data fetch success");
 
                 // 통신 성공
                 if (response.isSuccessful() && response.body()!=null){
                     // response.body()를 result에 저장
-                    RetrofitResponse result = response.body();
+                    // List<RetrofitResponse> result = response.body();
 
+                    List<RetrofitResponse> items = response.body();
+                    int listSize = items.size();
+                    String[] resultUserID = new String[listSize];
+                    String[] resultComment = new String[listSize];
+                    float[] resultScore = new float[listSize];
+                    int i=0;
+                    for (RetrofitResponse item : items) {
+                        resultUserID[i] = item.getUserID();
+                        resultComment[i] = item.getComment();
+                        resultScore[i] = item.getScore();
+                        i++;
+                    }
+
+                    /*
                     // 받은 데이터 저장
-                    String resultUserID = result.userID;
+                    String resultUserID = result.getUserID();
                     String resultComment = result.comment;
                     Float resultScore = result.score;
 
-                    Log.d("retrofit", "LoadingActivity | onResponse : userID_"+resultUserID);
-                    Log.d("retrofit", "LoadingActivity | onResponse : comment_"+resultComment);
-                    Log.d("retrofit", "LoadingActivity | onResponse : score_: "+resultScore);
+                     */
 
                     nextActivity(youtubeID, resultUserID, resultComment, resultScore);
                 } else {
@@ -90,7 +103,7 @@ public class LoadingActivity extends AppCompatActivity {
 
             // 인터넷 장애로 인한 통신 실패
             @Override
-            public void onFailure(Call<RetrofitResponse> call, Throwable t) {
+            public void onFailure(Call<List<RetrofitResponse>> call, Throwable t) {
                 Log.d("retrofit","LoadingActivity | RetrofitResponse : onFailure");
                 t.printStackTrace();
                 Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
@@ -106,7 +119,7 @@ public class LoadingActivity extends AppCompatActivity {
         //super.onBackPressed();
     }
 
-    public void nextActivity(String videoID, String resultUserID, String resultComment, Float resultScore) {
+    public void nextActivity(String videoID, String[] id, String[] cmt, float[] score) {
         // 3초 뒤에 ResultActivity로 전환
         Log.d("activity", "LoadingActivity | ResultActivity로 전환");
         new Handler().postDelayed(new Runnable() {
@@ -114,9 +127,10 @@ public class LoadingActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(LoadingActivity.this, ResultActivity.class);
                 intent.putExtra("videoID", videoID);
-                intent.putExtra("userID", resultUserID);
-                intent.putExtra("comment", resultComment);
-                intent.putExtra("score", resultScore);
+                intent.putExtra("userID", id);
+                intent.putExtra("comment", cmt);
+                intent.putExtra("score", score);
+
                 startActivity(intent);
             }
         }, 3000);

@@ -6,9 +6,22 @@ import org.w3c.dom.Text;
 
 public class RetrofitResponse {
     @SerializedName("userID")
-    public String userID;
+    private String userID;
     @SerializedName("comment")
-    public String comment;
+    private String comment;
     @SerializedName("score")
-    public Float score;
+    private Float score;
+
+    public final String getUserID() {
+        return userID;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public float getScore(){
+        float fScore = Float.valueOf(score);
+        return score;
+    }
 }
