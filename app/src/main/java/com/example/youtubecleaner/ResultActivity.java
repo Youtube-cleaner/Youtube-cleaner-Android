@@ -30,8 +30,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class ResultActivity extends AppCompatActivity{
 
@@ -127,8 +129,6 @@ public class ResultActivity extends AppCompatActivity{
         arrComment = dm.getComment();
         arrScore = dm.getScore();
 
-
-
         for(int i=0; i<numContent; i++){
             //Log.d("ResultActivity", "userID="+arrUserID[i]+"," + "comment="+arrComment[i]+", score="+arrScore[i]);
             adapter.addItem(arrUserID[i], arrComment[i], arrScore[i]);
@@ -151,37 +151,36 @@ public class ResultActivity extends AppCompatActivity{
         btnSort.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(btnSort.getText().toString()=="정렬하기" || btnSort.getText().toString()=="내림차순"){
-                    // 오름차순으로 정렬하기. asc
+                Log.d("댓글 정렬", "정렬하기? == "+btnSort.getText().toString());
+                String tmp = btnSort.getText().toString();
+                if(tmp.equals("정렬하기")){
                     btnSort.setText("오름차순");
-                    sortItem(0);
+                    Collections.sort(itemList, new Comparator<ListViewItem>() {
+                        @Override
+                        public int compare(ListViewItem i1, ListViewItem i2) {
+                            if(i1.getItemScore() < i2.getItemScore()){
+                                return -1;
+                            } else if(i1.getItemScore() > i2.getItemScore()){
+                                return 1;
+                            }
+                            return 0;
+                        }
+                    });
+
                 } else {
-                    // 내림차순으로 정렬하기. desc
-                    btnSort.setText("내림차순");
-                    sortItem(1);
+                    if(btnSort.getText().toString()=="내림차순"){
+                        btnSort.setText("오름차순");
+                    } else {
+                        // 내림차순으로 정렬하기. desc
+                        btnSort.setText("내림차순");
+                    }
+                    Collections.reverse(itemList);
+                    //sortItem(0);
                 }
+                adapter.notifyDataSetChanged();
             }
         });
 
-    }
-
-    protected void sortItem(int code){
-        Comparator<ListViewItem> compItem = new Comparator<ListViewItem>() {
-            @Override
-            public int compare(ListViewItem item1, ListViewItem item2){
-
-                if (code==0){ // 오름차순
-                    return (int)(item1.getItemScore() - item2.getItemScore());
-                } else if (code==1){ // 내림차순
-                    return (int)(item2.getItemScore() - item1.getItemScore());
-                }
-
-                return 0;
-            }
-        };
-
-        Collections.sort(itemList, compItem);
-        adapter.notifyDataSetChanged();
     }
 
     // youtube 동영상 이름과 채널명을 json 형식으로 받아오기
