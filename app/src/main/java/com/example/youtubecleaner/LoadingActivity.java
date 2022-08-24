@@ -93,6 +93,8 @@ public class LoadingActivity extends AppCompatActivity {
                         Log.d("retrofit", "LoadingActivity | onResponse isSuccessful == false : " + body);
                     }catch(IOException e){
                         e.printStackTrace();
+                    }catch(NullPointerException e){
+                        e.printStackTrace();
                     }
 
                     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);

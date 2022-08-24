@@ -87,7 +87,14 @@ public class ResultActivity extends AppCompatActivity{
         String[] comment = intent.getStringArrayExtra("comment");
         float[] score = intent.getFloatArrayExtra("score");
 
-        int arrayLength = userID.length;
+        int arrayLength = 0;
+        try{
+            arrayLength = userID.length;
+        }catch(NullPointerException e){
+            Toast.makeText(getApplicationContext(), "댓글이 없거나 불러올 수 없습니다.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
 
         Log.d("Intent", "ResultActivity | videoID = " +videoID);
 
