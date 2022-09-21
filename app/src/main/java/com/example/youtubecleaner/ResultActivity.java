@@ -100,8 +100,6 @@ public class ResultActivity extends AppCompatActivity{
 
         //Glide 라이브러리를 사용해서 유튜브 썸네일을 가져오는 작업
         ivThumbnail=(ImageView)findViewById(R.id.ivThumbnail);
-        //String youtubeID = "MyOoYJPQK9w";   // 유튜브 영상의 고유 ID. 테스트용.
-        //String thumbnail = "https://img.youtube.com/vi/"+youtubeID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
         String thumbnail = "https://img.youtube.com/vi/"+videoID+"/"+"default.jpg";   // 유튜브 썸네일 이미지 주소
         Glide.with(this)                 // Activity Context
                 .load(thumbnail)                // 불러올 이미지
@@ -125,23 +123,6 @@ public class ResultActivity extends AppCompatActivity{
 
         listView = (ListView) findViewById(R.id.listview0);
         listView.setAdapter(adapter);
-
-        // 데모 데이터
-
-        /*
-        DemoData dm = new DemoData();
-        int numContent = dm.getNum();
-
-        arrUserID = dm.getUserID();
-        arrComment = dm.getComment();
-        arrScore = dm.getScore();
-
-        for(int i=0; i<numContent; i++){
-            //Log.d("ResultActivity", "userID="+arrUserID[i]+"," + "comment="+arrComment[i]+", score="+arrScore[i]);
-            adapter.addItem(arrUserID[i], arrComment[i], arrScore[i]);
-        }
-
-         */
 
         for (int i=0; i<arrayLength; i++) {
             try{

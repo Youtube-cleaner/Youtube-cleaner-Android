@@ -30,8 +30,6 @@ public class LoadingActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        // https://youtu.be/MyOoYJPQK9w
-
         // MainActivity에서 넘겨준 uri을 받아옴
         Intent intent = getIntent();
         String strUri = intent.getStringExtra("strUri");
@@ -39,7 +37,6 @@ public class LoadingActivity extends AppCompatActivity {
 
         String videoID = strUri.substring(strUri.length()-11, strUri.length());
         Log.d("Intent", "LoadingActivity | videoID = "+videoID);
-        //String videoID = "fksdnfenfsf";
 
         RetrofitResponse(videoID);
 

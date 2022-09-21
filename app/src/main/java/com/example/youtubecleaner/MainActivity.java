@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     String strUri;
 
-    // https://youtu.be/yi0Y1i-d3Uk
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
